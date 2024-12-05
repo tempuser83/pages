@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Stars in Graz - Концерт</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+            font-family: 'Arial', sans-serif;
+            scroll-behavior: smooth;
+            background-color: #000;
+            color: #fff;
+        }
+
+        body {
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Навигационное меню */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 15px 0;
+            text-align: center;
+            z-index: 1000;
+        }
+
+        nav a {
+            color: #fff;
+            margin: 0 15px;
+            text-decoration: none;
+            font-size: 18px;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #f00;
+        }
+
+        /* Первая страница */
+        .container {
+            height: 100vh;
+            width: 100%;
+            background-image: url('background.jpg'); /* Фон */
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+        }
+
+        .second-page {
+            background-image: url('background2.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+        }
+
+        .content {
+            position: relative;
+            z-index: 2;
+            color: #fff;
+            padding: 20px;
+            max-width: 600px;
+        }
+
+        h1 {
+            font-size: 64px;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+        .button {
+            margin-top: 80px; /* Увеличенный отступ сверху */
+            padding: 15px 30px;
+            background-color: #f00;
+            color: #fff;
+            text-transform: uppercase;
+            text-decoration: none;
+            font-size: 18px;
+            border-radius: 50px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .button:hover {
+            background-color: #d00;
+            transform: scale(1.05);
+        }
+
+        /* Секции */
+        .section {
+            padding: 80px 20px;
+            text-align: center;
+        }
+
+        .schedule {
+            background-color: #111;
+        }
+
+        .schedule h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+
+        /* Дизайн отзывов */
+        .review {
+            background-color: #222;
+            color: #ddd;
+        }
+
+        .review h2 {
+            margin-bottom: 30px;
+        }
+
+        .review blockquote {
+            font-size: 18px;
+            font-style: italic;
+            border-left: 5px solid #f00;
+            margin: 20px auto;
+            padding: 10px 20px;
+            color: #f0f0f0;
+            max-width: 800px;
+        }
+
+        /* Дополнительные отзывы */
+        .review blockquote + blockquote {
+            margin-top: 30px;
+        }
+
+        /* Дизайн FAQ */
+        .faq {
+            background-color: #222;
+            padding: 80px 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.5);
+        }
+
+        .faq h2 {
+            margin-bottom: 30px;
+            font-size: 36px;
+            color: #f00;
+            text-transform: uppercase;
+        }
+
+        .faq-item {
+            margin-bottom: 20px;
+            cursor: pointer;
+            border-bottom: 1px solid #444;
+            padding: 10px 0;
+            transition: background-color 0.3s ease;
+        }
+
+        .faq-item:hover {
+            background-color: #333;
+        }
+
+        .faq-item h4 {
+            font-size: 24px;
+            color: #f0f0f0;
+            display: flex;
+            align-items: center;
+        }
+
+        .faq-item h4::before {
+            content: '❓';
+            margin-right: 10px;
+            font-size: 24px;
+            color: #f00;
+        }
+
+        .faq-item p {
+            font-size: 18px;
+            color: #ccc;
+            margin-left: 30px;
+            display: none;
+        }
+
+        .faq-item.active p {
+            display: block;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Плавная анимация стрелки вниз */
+        .arrow {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 40px;
+            color: #fff;
+            cursor: pointer;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-15px);
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Навигационное меню -->
+<nav>
+    <a href="#about">О мероприятии</a>
+    <a href="#schedule">Расписание</a>
+    <a href="#tickets">Купить билеты</a>
+    <a href="#review">Отзывы</a>
+    <a href="#faq">FAQ</a>
+</nav>
+
+<!-- Целевая страница (раздел 1) -->
+<div class="container" id="about">
+    <div class="overlay"></div>
+    <div class="content">
+        <h1>Stars in Graz</h1>
+        <p>Дата концерта: <strong>30.11.2021</strong></p>
+        <p>Место проведения: <strong>Messe Congress Graz</strong></p>
+        <p>Полный сайт будет доступен: <strong>19.11.2021</strong></p>
+        <a href="#" class="button">Следите за обновлениями</a>
+    </div>
+    <div class="arrow">↓</div>
+</div>
+
+<!-- Раздел расписания концертов -->
+<section class="section schedule" id="schedule">
+    <h2>Расписание концертов</h2>
+    <p><strong>30.11.2021</strong> — Stars in Graz</p>
+    <p><strong>01.12.2021</strong> — Jazz Night</p>
+    <p><strong>02.12.2021</strong> — Classical Evening</p>
+</section>
+
+<!-- Раздел покупки билетов -->
+<section class="section second-page" id="tickets">
+    <a href="#" class="button">Купить билеты</a>
+</section>
+
+<!-- Раздел с отзывами -->
+<section class="section review" id="review">
+    <h2>Отзывы</h2>
+    <blockquote>"Это был один из лучших концертов в моей жизни! Атмосфера просто потрясающая!" — Анна Петрова</blockquote>
+    <blockquote>"Звуковая система и исполнение — на высшем уровне. Понравилось всё!" — Сергей Иванов</blockquote>
+    <blockquote>"Организация была на высоте, с нетерпением жду следующего года!" — Мария Смирнова</blockquote>
+</section>
+
+<!-- Раздел FAQ -->
+<section class="section faq" id="faq">
+    <h2>Часто задаваемые вопросы</h2>
+
+    <div class="faq-item">
+        <h4>Как купить билеты?</h4>
+        <p>Вы можете купить билеты через наш сайт, нажав на кнопку "Купить билеты".</p>
+    </div>
+
+    <div class="faq-item">
+        <h4>Можно ли вернуть билеты?</h4>
+        <p>Возврат билетов возможен в течение 14 дней до начала мероприятия.</p>
+    </div>
+
+    <div class="faq-item">
+        <h4>Будут ли доступны места для людей с ограниченными возможностями?</h4>
+        <p>Да, у нас предусмотрены специальные места. Пожалуйста, свяжитесь с организаторами заранее.</p>
+    </div>
+</section>
+
+<script>
+    document.querySelectorAll('nav a').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href').substring(1);
+            const targetElement = document.getElementById(targetId);
+
+            targetElement.scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+    });
+
+    document.querySelectorAll('.faq-item').forEach(item => {
+        item.addEventListener('click', () => {
+            item.classList.toggle('active');
+        });
+    });
+</script>
+
+</body>
+</html>
